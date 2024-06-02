@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="LearnCook"
+        android:text="@string/login_titulo"
         android:fontFamily="@font/display"
         android:layout_gravity="center"
         android:layout_marginTop="150dp"
@@ -23,7 +23,7 @@
         android:id="@+id/et_correo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Correo electrónico"
+        android:hint="@string/login_et_correo"
         android:layout_marginTop="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
@@ -38,7 +38,7 @@
         android:id="@+id/et_contraseña"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Contraseña"
+        android:hint="@string/login_et_contrasena"
         android:layout_marginTop="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
@@ -52,11 +52,12 @@
         android:id="@+id/btn_ingreso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Inicio de sesión"
+        android:text="@string/login_btn_inicio"
+        android:textSize="20sp"
         android:textColor="#021D3D"
         android:fontFamily="@font/roboto"
-        android:background="@drawable/rounded_button"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp" />
+        android:layout_marginEnd="20dp"
+        />
 </LinearLayout>

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">LearnCook</string>
+    <!--strings del Login-->
+    <string name="login_titulo">LearnCook</string>
+    <string name="login_et_correo">Correo electrónico</string>
+    <string name="login_et_contrasena">Contraseña</string>
+    <string name="login_btn_inicio">Iniciar sesión</string>
 </resources>
