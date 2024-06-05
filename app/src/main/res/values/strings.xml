@@ -5,4 +5,6 @@
     <string name="login_et_correo">Correo electrónico</string>
     <string name="login_et_contrasena">Contraseña</string>
     <string name="login_btn_inicio">Iniciar sesión</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Home fragment</string>
 </resources>

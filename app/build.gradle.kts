@@ -48,4 +48,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    //implementacion de materia desing para el button navigation
+    androidTestImplementation("com.google.android.material:material:1.4.0")
 }
