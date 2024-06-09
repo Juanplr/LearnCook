@@ -1,8 +1,6 @@
 package com.example.learncook.utilidades
 
 import android.util.Log
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.util.Properties
 import javax.mail.Authenticator
 import javax.mail.Message
@@ -15,7 +13,7 @@ import javax.mail.internet.MimeMessage
 class Email {
 
     suspend fun sendEmail(to: String, subject: String, body: String): Boolean {
-        return withContext(Dispatchers.IO) {
+        var bandera = false
             try {
                 val properties = Properties().apply {
                     put("mail.smtp.host", "smtp.gmail.com")
@@ -39,11 +37,10 @@ class Email {
                 message.setText(body)
 
                 Transport.send(message)
-                true
+                bandera = true
             } catch (e: Exception) {
                 Log.e("Envio", "Error al enviar el correo a $to con asunto '$subject'", e)
-                false
             }
-        }
+        return bandera
     }
 }
