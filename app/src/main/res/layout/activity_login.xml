@@ -48,11 +48,35 @@
         android:textColorHint="#021D3D"
         android:background="@drawable/rounded_edittext"/>
 
+    <TextView
+        android:id="@+id/tw_recuperar_contrasena"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_btn_olvidaste"
+        android:fontFamily="@font/roboto"
+        android:layout_marginTop="10dp"
+        android:paddingStart="20dp"
+        android:textSize="20sp"
+        android:textColor="#2F4DE3"
+        />
+
     <Button
         android:id="@+id/btn_ingreso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login_btn_inicio"
+        android:textSize="20sp"
+        android:textColor="#021D3D"
+        android:fontFamily="@font/roboto"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        />
+    <Button
+        android:id="@+id/btn_Registrarse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login_btn_registro"
         android:textSize="20sp"
         android:textColor="#021D3D"
         android:fontFamily="@font/roboto"

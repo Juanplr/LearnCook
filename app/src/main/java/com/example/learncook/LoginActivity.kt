@@ -36,6 +36,13 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+        binding.twRecuperarContrasena.setOnClickListener {
+            val intent = Intent(this,RecuperarContrasenaActivity::class.java)
+            startActivity(intent)
+        }
+        binding.btnRegistrarse.setOnClickListener {
+
+        }
     }
 
     fun validarCampos(correo: String, contrasena: String): Boolean {
