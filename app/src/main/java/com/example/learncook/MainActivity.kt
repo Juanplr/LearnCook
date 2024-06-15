@@ -13,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private var idUsuario = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,11 +21,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val bottomNavigation: BottomNavigationView = binding.bottonNavigation
+        idUsuario = intent.getIntExtra("idUsuario",-1)
 
         bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.item_home -> {
-                    openFragment(HomeFragment())
+                    openFragment(HomeFragment.newInstance(idUsuario))
                     true
                 }
                 R.id.item_perfil -> {
@@ -43,7 +45,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Muestra el primer fragmento por defecto
+
         if (savedInstanceState == null) {
             bottomNavigation.selectedItemId = R.id.item_home
         }
@@ -55,5 +57,4 @@ class MainActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
-
 }

@@ -35,7 +35,7 @@
         android:background="@drawable/rounded_edittext"/>
 
     <EditText
-        android:id="@+id/et_contraseña"
+        android:id="@+id/et_contrasena"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/login_et_contrasena"
