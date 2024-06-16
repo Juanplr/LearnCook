@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.learncook.databinding.FragmentHomeBinding
 
-private const val ARG_PARAM1 = "nombreUsuario"
+private const val ARG_PARAM1 = "idUsuario"
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding

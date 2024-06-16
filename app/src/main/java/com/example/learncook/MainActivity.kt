@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.item_perfil -> {
-                    openFragment(PerfilFragment())
+                    openFragment(PerfilFragment.newInstance(idUsuario))
                     true
                 }
                 R.id.item_usuarios -> {
@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             bottomNavigation.selectedItemId = R.id.item_home
         }
+
     }
 
     private fun openFragment(fragment: Fragment) {

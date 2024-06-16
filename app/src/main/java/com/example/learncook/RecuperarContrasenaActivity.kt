@@ -1,7 +1,6 @@
 package com.example.learncook
 
-import android.hardware.Sensor
-import android.hardware.SensorManager
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,6 +8,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.learncook.databinding.ActivityRecuperarContrasenaBinding
+import com.example.learncook.modelo.LearnCookDB
 import com.example.learncook.utilidades.Email
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,22 +20,29 @@ class RecuperarContrasenaActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRecuperarContrasenaBinding
     private val emailUtil = Email()
-    private lateinit var sensorManager: SensorManager
-    private lateinit var sensor: Sensor
+    //private lateinit var sensorManager: SensorManager
+    //private lateinit var sensor: Sensor
     private lateinit var progressBar: ProgressBar
     private var codigo: Int = 0
+    private var correo: String =""
+    private lateinit var modelo: LearnCookDB
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRecuperarContrasenaBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
+        modelo = LearnCookDB(this@RecuperarContrasenaActivity)
         progressBar = binding.progressBar
 
         binding.btnEnviarCorreo.setOnClickListener {
-            if (validarDatosCorreo()) {
-                enviarCorreo()
+            correo = binding.etCorreo.text.toString()
+            if (validarDatosCorreo(correo)) {
+                if(modelo.isCorreo(correo)){
+                    enviarCorreo(correo)
+                }else{
+                    Toast.makeText(this@RecuperarContrasenaActivity, "Este correo no se encuentra registrado", Toast.LENGTH_LONG).show()
+                }
             }
         }
         binding.btnEnviarCodigo.setOnClickListener {
@@ -52,10 +59,37 @@ class RecuperarContrasenaActivity : AppCompatActivity() {
                 }
             }
         }
+        binding.btnRestaurarContrasena.setOnClickListener {
+            var contrasena = binding.etContrasena.text.toString()
+            if(validarDatosContrasena(contrasena)){
+                var actualizado = modelo.actualizarContrasena(correo,contrasena)
+                if (actualizado>0){
+                    Toast.makeText(this@RecuperarContrasenaActivity, "Contraseña actualizada", Toast.LENGTH_LONG).show()
+                    val intent = Intent(this,LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }else{
+                    Toast.makeText(this@RecuperarContrasenaActivity, "No se pudo actualizar la contraseña", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
-    private fun validarDatosCorreo(): Boolean {
-        val correo = binding.etCorreo.text.toString()
+    private fun validarDatosContrasena(contrasena:String): Boolean {
+        var bandera = false
+        if(contrasena.isNotEmpty()){
+            if (contrasena.length >= 8){
+                bandera = true
+            }else{
+                binding.etContrasena.error = "La contraseña debe ser mas de 8 caracteres"
+            }
+        }else{
+            binding.etContrasena.error = "Favor de llenar este campo"
+        }
+        return bandera
+    }
+
+    private fun validarDatosCorreo(correo: String): Boolean {
         return if (correo.isNotBlank() && correo.contains("@")) {
             true
         } else {
@@ -64,8 +98,7 @@ class RecuperarContrasenaActivity : AppCompatActivity() {
         }
     }
 
-    private fun enviarCorreo() {
-        val correo = binding.etCorreo.text.toString()
+    private fun enviarCorreo(correo: String) {
         val subject = "Código de Recuperación"
         codigo = generarCodigo()
         val body = "Tu código de recuperación es: $codigo"

@@ -164,4 +164,33 @@ class LearnCookDB(contexto: Context): SQLiteOpenHelper(contexto,NOMBRE_DB,null,V
         db.close()
         return usuario
     }
+
+    fun isCorreo(correo: String): Boolean {
+        val db = readableDatabase
+        val columnas = arrayOf(COL_ID_USUARIO)
+        val filtro = "$COL_CORREO = ? "
+        val clausua = arrayOf(correo)
+        val cursor = db.query(
+            NOMBRE_TABLA_USUARIO,
+            columnas,
+            filtro,
+            clausua,
+            null,
+            null,
+            null
+        )
+        val existe = cursor.count > 0
+        cursor.close()
+        db.close()
+        return existe
+    }
+    fun actualizarContrasena(correo: String, contrasena: String):Int{
+        val db = writableDatabase
+        val valoresUpdate = ContentValues().apply {
+            put(COL_CONTRASENA,contrasena)
+        }
+        val filasA = db.update(NOMBRE_TABLA_USUARIO,valoresUpdate,"$COL_CORREO = ? ", arrayOf(correo))
+        db.close()
+        return filasA
+    }
 }
