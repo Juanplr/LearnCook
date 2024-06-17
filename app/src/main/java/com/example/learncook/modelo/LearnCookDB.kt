@@ -252,4 +252,5 @@ class LearnCookDB(contexto: Context) : SQLiteOpenHelper(contexto, NOMBRE_DB, nul
         db.close()
         return filas
     }
+    
 }
