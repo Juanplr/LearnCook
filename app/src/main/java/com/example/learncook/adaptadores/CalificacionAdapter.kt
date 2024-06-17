@@ -6,10 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.learncook.R
-import com.example.learncook.interfaces.ListenerRecycleCalificacion
 import com.example.learncook.poko.CalificacionDatos
 
-class CalificacionAdapter (val calificaciones: List<CalificacionDatos>, val listener : ListenerRecycleCalificacion): RecyclerView.Adapter<CalificacionAdapter.ViewHolderCalficacion>(){
+class CalificacionAdapter (val calificaciones: List<CalificacionDatos>): RecyclerView.Adapter<CalificacionAdapter.ViewHolderCalficacion>(){
     class ViewHolderCalficacion(itemView: View): RecyclerView.ViewHolder(itemView){
         val tvNombreUsuario: TextView = itemView.findViewById(R.id.tv_nombre_usuario)
         val tvCalificacion: TextView = itemView.findViewById(R.id.tv_calificacion)

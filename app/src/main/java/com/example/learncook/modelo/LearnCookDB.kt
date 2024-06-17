@@ -1,9 +1,13 @@
 package com.example.learncook.modelo
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.learncook.poko.Calificacion
+import com.example.learncook.poko.CalificacionDatos
 import com.example.learncook.poko.Receta
 import com.example.learncook.poko.Usuario
 
@@ -252,5 +256,50 @@ class LearnCookDB(contexto: Context) : SQLiteOpenHelper(contexto, NOMBRE_DB, nul
         db.close()
         return filas
     }
-    
+    @SuppressLint("Range")
+    fun traerCalificacionesDeReceta(id: Int): List<CalificacionDatos> {
+        val calificaciones = mutableListOf<CalificacionDatos>()
+        val db = readableDatabase
+        val columnas = arrayOf(
+            "$NOMBRE_TABLA_USUARIO.$COL_NOMBRE_USUARIO",
+            "$NOMBRE_TABLA_CALIFICACIONES.$COL_PUNTUACION",
+            "$NOMBRE_TABLA_CALIFICACIONES.$COL_COMENTARIO"
+        )
+        val whereClause = "$COL_RECETA_ID_CALIFICACION = ?"
+        val whereArgs = arrayOf(id.toString())
+
+        val query = "SELECT ${columnas.joinToString()} " +
+                "FROM $NOMBRE_TABLA_CALIFICACIONES " +
+                "INNER JOIN $NOMBRE_TABLA_USUARIO " +
+                "ON $NOMBRE_TABLA_CALIFICACIONES.$COL_USUARIO_ID_CALIFICACION = " +
+                "$NOMBRE_TABLA_USUARIO.$COL_ID_USUARIO " +
+                "WHERE $whereClause"
+
+        val cursor: Cursor? = db.rawQuery(query, whereArgs)
+
+        cursor?.use { cursor ->
+            while (cursor.moveToNext()) {
+                val nombreUsuario = cursor.getString(cursor.getColumnIndex(COL_NOMBRE_USUARIO))
+                val puntuacion = cursor.getInt(cursor.getColumnIndex(COL_PUNTUACION))
+                val comentario = cursor.getString(cursor.getColumnIndex(COL_COMENTARIO))
+                val calificacion = CalificacionDatos(nombreUsuario, puntuacion, comentario)
+                calificaciones.add(calificacion)
+            }
+        }
+        cursor?.close()
+        db.close()
+
+        return calificaciones
+    }
+    fun agregarCalificacion(calificacion: Calificacion): Long {
+        val db = writableDatabase
+        val valoresInsert = ContentValues().apply {
+            
+        }
+        val filas = db.insert(NOMBRE_TABLA_CALIFICACIONES, null, valoresInsert)
+        db.close()
+        return filas
+    }
+
+
 }
