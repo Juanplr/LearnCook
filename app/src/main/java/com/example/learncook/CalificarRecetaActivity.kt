@@ -3,7 +3,6 @@ package com.example.learncook
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.learncook.adaptadores.CalificacionAdapter
 import com.example.learncook.databinding.ActivityCalificarRecetaBinding
@@ -17,7 +16,6 @@ class CalificarRecetaActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding = ActivityCalificarRecetaBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
@@ -54,19 +52,39 @@ class CalificarRecetaActivity : AppCompatActivity() {
     }
 
     private fun pintarEstrella1() {
-
+        binding.ibEstrella1.setImageResource(R.mipmap.ic_estrella_amarilla)
+        binding.ibEstrella2.setImageResource(R.mipmap.ic_estrella_negra)
+        binding.ibEstrella3.setImageResource(R.mipmap.ic_estrella_negra)
+        binding.ibEstrella4.setImageResource(R.mipmap.ic_estrella_negra)
+        binding.ibEstrella5.setImageResource(R.mipmap.ic_estrella_negra)
     }
     private fun pintarEstrella2() {
-
+        binding.ibEstrella1.setImageResource(R.mipmap.ic_estrella_amarilla)
+        binding.ibEstrella2.setImageResource(R.mipmap.ic_estrella_amarilla)
+        binding.ibEstrella3.setImageResource(R.mipmap.ic_estrella_negra)
+        binding.ibEstrella4.setImageResource(R.mipmap.ic_estrella_negra)
+        binding.ibEstrella5.setImageResource(R.mipmap.ic_estrella_negra)
     }
     private fun pintarEstrella3() {
-
+        binding.ibEstrella1.setImageResource(R.mipmap.ic_estrella_amarilla)
+        binding.ibEstrella2.setImageResource(R.mipmap.ic_estrella_amarilla)
+        binding.ibEstrella3.setImageResource(R.mipmap.ic_estrella_amarilla)
+        binding.ibEstrella4.setImageResource(R.mipmap.ic_estrella_negra)
+        binding.ibEstrella5.setImageResource(R.mipmap.ic_estrella_negra)
     }
     private fun pintarEstrella4() {
-
+        binding.ibEstrella1.setImageResource(R.mipmap.ic_estrella_amarilla)
+        binding.ibEstrella2.setImageResource(R.mipmap.ic_estrella_amarilla)
+        binding.ibEstrella3.setImageResource(R.mipmap.ic_estrella_amarilla)
+        binding.ibEstrella4.setImageResource(R.mipmap.ic_estrella_amarilla)
+        binding.ibEstrella5.setImageResource(R.mipmap.ic_estrella_negra)
     }
     private fun pintarEstrella5() {
-
+        binding.ibEstrella1.setImageResource(R.mipmap.ic_estrella_amarilla)
+        binding.ibEstrella2.setImageResource(R.mipmap.ic_estrella_amarilla)
+        binding.ibEstrella3.setImageResource(R.mipmap.ic_estrella_amarilla)
+        binding.ibEstrella4.setImageResource(R.mipmap.ic_estrella_amarilla)
+        binding.ibEstrella5.setImageResource(R.mipmap.ic_estrella_amarilla)
     }
 
     private fun insertarCalificacion() {
