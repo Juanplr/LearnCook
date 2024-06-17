@@ -294,4 +294,30 @@ class LearnCookDB(contexto: Context) : SQLiteOpenHelper(contexto, NOMBRE_DB, nul
     }
 
 
+    fun eliminarUsuario(idUsuario: Int): Boolean {
+        val db = writableDatabase
+        val whereClauseUsuario = "$COL_ID_USUARIO = ?"
+        val whereArgsUsuario = arrayOf(idUsuario.toString())
+        val filasEliminadasUsuario = db.delete(NOMBRE_TABLA_USUARIO, whereClauseUsuario, whereArgsUsuario)
+
+        // También eliminamos cualquier otra información relacionada (ej. recetas del usuario, seguidores, calificaciones, etc.)
+        val whereClauseRecetas = "$COL_USUARIO_ID = ?"
+        val whereArgsRecetas = arrayOf(idUsuario.toString())
+        val filasEliminadasRecetas = db.delete(NOMBRE_TABLA_RECETA, whereClauseRecetas, whereArgsRecetas)
+
+        val whereClauseSeguidor = "$COL_USUARIO_ID_SEGUIDOR = ? OR $COL_SEGUIDO_ID = ?"
+        val whereArgsSeguidor = arrayOf(idUsuario.toString(), idUsuario.toString())
+        val filasEliminadasSeguidor = db.delete(NOMBRE_TABLA_SEGUIDOR, whereClauseSeguidor, whereArgsSeguidor)
+
+        val whereClauseCalificaciones = "$COL_USUARIO_ID_CALIFICACION = ?"
+        val whereArgsCalificaciones = arrayOf(idUsuario.toString())
+        val filasEliminadasCalificaciones = db.delete(NOMBRE_TABLA_CALIFICACIONES, whereClauseCalificaciones, whereArgsCalificaciones)
+
+        db.close()
+
+        // Retornamos true si se eliminó al menos una fila en alguna de las tablas relacionadas
+        return filasEliminadasUsuario > 0 || filasEliminadasRecetas > 0 || filasEliminadasSeguidor > 0 || filasEliminadasCalificaciones > 0
+    }
+
+
 }
