@@ -279,5 +279,48 @@ class LearnCookDB(contexto: Context) : SQLiteOpenHelper(contexto, NOMBRE_DB, nul
         return db.delete("Receta", "id = ?", arrayOf(id.toString()))
     }
 
+    //Función para actualizar una receta
+    fun actualizarReceta(receta: Receta): Int {
+        val db = writableDatabase
+        val valoresUpdate = ContentValues().apply {
+            put(COL_NOMBRE_RECETA, receta.nombre)
+            put(COL_TIEMPO, receta.tiempo)
+            put(COL_PRESUPUESTO, receta.presupuesto)
+            put(COL_PREPARACION, receta.descripcion)
+        }
+        val filasAfectadas = db.update(NOMBRE_TABLA_RECETA, valoresUpdate, "$COL_ID_RECETA = ?", arrayOf(receta.id.toString()))
+        db.close()
+        return filasAfectadas
+    }
+
+    //Función para obtener una receta por su ID
+    fun getRecetaById(id: Int): Receta? {
+        val db = readableDatabase
+        val cursor = db.query(
+            NOMBRE_TABLA_RECETA,
+            null,
+            "$COL_ID_RECETA = ?",
+            arrayOf(id.toString()),
+            null,
+            null,
+            null
+        )
+        var receta: Receta? = null
+        if (cursor.moveToFirst()) {
+            receta = Receta(
+                id = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID_RECETA)),
+                nombre = cursor.getString(cursor.getColumnIndexOrThrow(COL_NOMBRE_RECETA)),
+                tiempo = cursor.getString(cursor.getColumnIndexOrThrow(COL_TIEMPO)),
+                presupuesto = cursor.getInt(cursor.getColumnIndexOrThrow(COL_PRESUPUESTO)),
+                descripcion = cursor.getString(cursor.getColumnIndexOrThrow(COL_PREPARACION)),
+                idUsuario = cursor.getInt(cursor.getColumnIndexOrThrow(COL_USUARIO_ID))
+            )
+        }
+        cursor.close()
+        db.close()
+        return receta
+    }
+
+
 }
 

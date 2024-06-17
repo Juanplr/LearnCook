@@ -5,9 +5,22 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".CrearRecetaActivity"
-    android:background="#FFF9E3">
+    tools:context=".EditarRecetaActivity">
+
+    <TextView
+        android:id="@+id/tvHeader"
+        android:layout_width="414dp"
+        android:layout_height="79dp"
+        android:background="#003366"
+        android:padding="16dp"
+        android:text="Editar receta"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/close_button"
@@ -16,23 +29,8 @@
         android:layout_marginEnd="8dp"
         android:contentDescription="@string/close"
         android:src="@drawable/close_24px"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="#003366"
-        android:text="Crear Receta"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/white"
-        android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/close_button"
-        app:layout_constraintWidth_percent="1" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/tv_titulo"
@@ -40,8 +38,8 @@
         android:layout_height="wrap_content"
         android:text="Título"
         android:textColor="@android:color/black"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/title"
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@id/tvHeader"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_marginTop="16dp" />
 
@@ -80,25 +78,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="1" />
 
-    <TextView
-        android:id="@+id/tv_cantidad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cantidad"
-        android:textColor="@android:color/black"
-        android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@id/ingredients"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_marginTop="16dp" />
-
     <EditText
         android:id="@+id/ingredient_quantity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Cantidad de ingredientes"
-        android:padding="12dp"
+        android:padding="24dp"
         android:inputType="number"
-        app:layout_constraintTop_toBottomOf="@id/tv_cantidad"
+        app:layout_constraintTop_toBottomOf="@id/ingredients"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="1" />
@@ -118,7 +105,7 @@
         android:id="@+id/description"
         android:layout_width="0dp"
         android:layout_height="200dp"
-        android:hint="Detalla tu receta para que los demás sepan de que trata"
+        android:hint="Detalla tu receta para que los demás sepan de qué trata"
         android:padding="12dp"
         android:inputType="textMultiLine"
         android:gravity="top"
@@ -128,13 +115,13 @@
         app:layout_constraintWidth_percent="1" />
 
     <Button
-        android:id="@+id/create_button"
+        android:id="@+id/edit_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:backgroundTint="#003366"
         android:padding="12dp"
-        android:text="CREAR"
+        android:text="EDITAR"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
