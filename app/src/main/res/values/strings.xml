@@ -11,4 +11,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Home fragment</string>
     <string name="close">Cerrar</string>
+    <string name="delete_recipe">Eliminar receta</string>
+    <string name="recipe_icon">Icono de la receta</string>
 </resources>

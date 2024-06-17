@@ -199,13 +199,39 @@ class LearnCookDB(contexto: Context): SQLiteOpenHelper(contexto,NOMBRE_DB,null,V
         val db = writableDatabase
         val valoresInsert = ContentValues().apply {
             put(COL_USUARIO_ID, receta.idUsuario)
+            //AÑADIR DESCRIPCION DE LA RECETA Y NOMBRE DE LA RECETA
             put(COL_TIEMPO, receta.tiempo)
             put(COL_PRESUPUESTO, receta.presupuesto)
-            put(COL_PREPARACION, receta.preparacion)
         }
         val filas = db.insert(NOMBRE_TABLA_RECETA, null, valoresInsert)
         db.close()
         return filas
+    }
+
+    fun buscarRecetasPorUsuario(idUsuario: Int, nombre: String): List<Receta> {
+        val db = readableDatabase
+        val recetas = mutableListOf<Receta>()
+        val cursor = db.rawQuery("SELECT * FROM Receta WHERE idUsuario = ? AND nombre LIKE ?", arrayOf(idUsuario.toString(), "%$nombre%"))
+        if (cursor.moveToFirst()) {
+            do {
+                val receta = Receta(
+                    id = cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                    nombre = cursor.getString(cursor.getColumnIndexOrThrow("nombre")),
+                    descripcion = cursor.getString(cursor.getColumnIndexOrThrow("descripcion")),
+                    tiempo = cursor.getString(cursor.getColumnIndexOrThrow("tiempo")),
+                    presupuesto = cursor.getInt(cursor.getColumnIndexOrThrow("presupuesto")),
+                    idUsuario = cursor.getInt(cursor.getColumnIndexOrThrow("idUsuario"))
+                )
+                recetas.add(receta)
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        return recetas
+    }
+
+    fun eliminarReceta(id: Int): Int {
+        val db = writableDatabase
+        return db.delete("Receta", "id = ?", arrayOf(id.toString()))
     }
 
 }
