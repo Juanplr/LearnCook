@@ -3,18 +3,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragmentos.RecetaFragment">
+    tools:context=".fragmentos.RecetaFragment"
+    android:background="#FCFFDF">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Receta" />
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/boton_receta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Receta"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tus Recetas"
+            android:fontFamily="@font/display"
+            android:textAlignment="center"
+            android:textSize="40sp"
+            android:textColor="#021D3D"
+            android:textStyle="bold"/>
+
+
+        <Button
+            android:id="@+id/boton_receta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Crear Receta"
+            android:textSize="20sp"
+            android:textColor="#021D3D"
+            android:fontFamily="@font/roboto"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="20dp"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycle_recetas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="2dp"
+            />
+    </LinearLayout>
 
 </FrameLayout>
