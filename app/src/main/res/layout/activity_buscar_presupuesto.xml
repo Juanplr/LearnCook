@@ -9,12 +9,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Buscar receta por Presupuesto"
+        android:text="Buscar Presupuesto"
         android:fontFamily="@font/display"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:textSize="40sp"
         android:textColor="#021D3D"
         android:textStyle="bold"/>

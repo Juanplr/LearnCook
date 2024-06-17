@@ -193,4 +193,15 @@ class LearnCookDB(contexto: Context): SQLiteOpenHelper(contexto,NOMBRE_DB,null,V
         db.close()
         return filasA
     }
+
+    fun actualizarCorreo(correoActual: String, nuevoCorreo: String): Int {
+        val db = writableDatabase
+        val valoresUpdate = ContentValues().apply {
+            put(COL_CORREO, nuevoCorreo)
+        }
+        val filasAfectadas = db.update(NOMBRE_TABLA_USUARIO, valoresUpdate, "$COL_CORREO = ?", arrayOf(correoActual))
+        db.close()
+        return filasAfectadas
+    }
+
 }
