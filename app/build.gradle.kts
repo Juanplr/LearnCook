@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation ("androidx.room:room-runtime:2.4.2")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -50,4 +51,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     //implementacion de materia desing para el button navigation
     androidTestImplementation("com.google.android.material:material:1.4.0")
+    implementation("com.sun.mail:android-mail:1.6.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
+
 }

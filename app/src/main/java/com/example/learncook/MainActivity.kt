@@ -13,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private var idUsuario = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,34 +21,37 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val bottomNavigation: BottomNavigationView = binding.bottonNavigation
+        idUsuario = intent.getIntExtra("idUsuario",-1)
 
         bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.item_home -> {
-                    openFragment(HomeFragment())
+                    openFragment(HomeFragment.newInstance(idUsuario))
                     true
                 }
                 R.id.item_perfil -> {
-                    openFragment(PerfilFragment())
+                    openFragment(PerfilFragment.newInstance(idUsuario))
                     true
                 }
                 R.id.item_usuarios -> {
-                    openFragment(UsuariosFragment())
+                    openFragment(UsuariosFragment.newInstance(idUsuario))
                     true
                 }
                 R.id.item_receta -> {
-                    openFragment(RecetaFragment())
+                    openFragment(RecetaFragment.newInstance(idUsuario))
                     true
                 }
                 else -> false
             }
         }
 
-        // Muestra el primer fragmento por defecto
+
         if (savedInstanceState == null) {
             bottomNavigation.selectedItemId = R.id.item_home
         }
+
     }
+
 
     private fun openFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
@@ -55,5 +59,4 @@ class MainActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
-
 }
