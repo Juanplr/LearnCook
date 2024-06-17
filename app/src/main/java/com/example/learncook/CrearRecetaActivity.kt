@@ -1,7 +1,11 @@
 package com.example.learncook
 
 import android.os.Bundle
-import android.widget.*
+import android.widget.AutoCompleteTextView
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -73,10 +77,17 @@ class CrearRecetaActivity : AppCompatActivity() {
         }
 
         // Crear instancia de receta
-        val receta = Receta(0, title, quantity.toInt(), desc, idUsuario)
+        val receta = Receta(
+            id = 0,
+            nombre = title,
+            tiempo = "Tiempo de la receta",
+            presupuesto = quantity.toInt(),
+            descripcion = desc,
+            idUsuario = idUsuario
+        )
 
         // Insertar receta en la base de datos
-        val db = LearnCookDB(this)
+        val db = LearnCookDB(this@CrearRecetaActivity)
         val resultado = db.agregarReceta(receta)
 
         if (resultado != -1L) {
@@ -86,4 +97,5 @@ class CrearRecetaActivity : AppCompatActivity() {
             Toast.makeText(this, "Error al crear la receta", Toast.LENGTH_SHORT).show()
         }
     }
+
 }

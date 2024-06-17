@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CalificarRecetaActivity">
+    tools:context=".CalificarRecetaActivity"
+    android:background="#FCFFDF">
 
     <TextView
         android:layout_width="match_parent"
@@ -124,6 +125,7 @@
                 android:text="Nombre Usuario"
                 android:fontFamily="@font/roboto"
                 android:layout_marginStart="10dp"
+                android:layout_marginBottom="5dp"
                 android:textSize="20sp"
                 android:textColor="#021D3D"
                 android:textStyle="bold"/>
@@ -153,7 +155,7 @@
         </LinearLayout>
     </LinearLayout>
     <Button
-        android:id="btn_calificar"
+        android:id="@+id/btn_calificar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Calificar Receta"
@@ -161,6 +163,7 @@
         android:layout_marginStart="10dp"
         android:textSize="20sp"
         android:textColor="#021D3D"
+        android:layout_marginTop="10dp"
         android:textStyle="bold"/>
 
     <View

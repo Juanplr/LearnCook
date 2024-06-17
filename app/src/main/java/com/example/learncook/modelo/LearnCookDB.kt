@@ -7,46 +7,54 @@ import android.database.sqlite.SQLiteOpenHelper
 import com.example.learncook.poko.Receta
 import com.example.learncook.poko.Usuario
 
-class LearnCookDB(contexto: Context): SQLiteOpenHelper(contexto,NOMBRE_DB,null,VERSION_DB){
+class LearnCookDB(contexto: Context) : SQLiteOpenHelper(contexto, NOMBRE_DB, null, VERSION_DB) {
+
     companion object {
-        private const val  NOMBRE_DB = "learnCook.bd"
-        //tabla usuario
-        private const val NOMBRE_TABLA_USUARIO ="usuario"
+        private const val NOMBRE_DB = "learnCook.bd"
+        // Tabla usuario
+        private const val NOMBRE_TABLA_USUARIO = "usuario"
         private const val COL_ID_USUARIO = "id"
         private const val COL_CORREO = "correo"
         private const val COL_CONTRASENA = "contrasena"
         private const val COL_NOMBRE_USUARIO = "nombreUsuario"
-        //tabla Receta
-        private const val NOMBRE_TABLA_RECETA ="receta"
+
+        // Tabla Receta
+        private const val NOMBRE_TABLA_RECETA = "receta"
         private const val COL_ID_RECETA = "id"
         private const val COL_USUARIO_ID = "usuarioId"
+        private const val COL_NOMBRE_RECETA = "nombreReceta"
         private const val COL_TIEMPO = "tiempo"
         private const val COL_PRESUPUESTO = "presupuesto"
         private const val COL_PREPARACION = "preparacion"
-        //tabla ingrediente
-        private const val NOMBRE_TABLA_INGREDIENTE ="ingrediente"
+
+        // Tabla ingrediente
+        private const val NOMBRE_TABLA_INGREDIENTE = "ingrediente"
         private const val COL_ID_INGREDIENTE = "id"
         private const val COL_NOMBRE = "nombre"
         private const val COL_PRECIO = "precio"
-        //tabla RecetaIngredientes
-        private const val NOMBRE_TABLA_RECETAINGREDIENTES ="recetaIngredientes"
+
+        // Tabla RecetaIngredientes
+        private const val NOMBRE_TABLA_RECETAINGREDIENTES = "recetaIngredientes"
         private const val COL_ID_RECETAINGREDIENTES = "id"
         private const val COL_RECETA_ID = "recetaId"
         private const val COL_INGREDIENTE_ID = "ingredienteId"
         private const val COL_CANTIDAD = "cantidad"
-        //tabla seguidor
-        private const val NOMBRE_TABLA_SEGUIDOR ="seguidor"
+
+        // Tabla seguidor
+        private const val NOMBRE_TABLA_SEGUIDOR = "seguidor"
         private const val COL_ID_SEGUIDOR = "id"
         private const val COL_USUARIO_ID_SEGUIDOR = "usuarioId"
         private const val COL_SEGUIDO_ID = "seguidoId"
-        //tabla calificaciones
-        private const val NOMBRE_TABLA_CALIFICACIONES ="calificaciones"
+
+        // Tabla calificaciones
+        private const val NOMBRE_TABLA_CALIFICACIONES = "calificaciones"
         private const val COL_ID_CALIFICACIONES = "id"
         private const val COL_USUARIO_ID_CALIFICACION = "usuarioId"
         private const val COL_RECETA_ID_CALIFICACION = "recetaId"
         private const val COL_PUNTUACION = "puntuacion"
         private const val COL_COMENTARIO = "comentario"
-        private const val  VERSION_DB = 1
+
+        private const val VERSION_DB = 2
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -96,39 +104,73 @@ class LearnCookDB(contexto: Context): SQLiteOpenHelper(contexto,NOMBRE_DB,null,V
                 "FOREIGN KEY ($COL_RECETA_ID_CALIFICACION) REFERENCES $NOMBRE_TABLA_RECETA($COL_ID_RECETA), " +
                 "UNIQUE ($COL_USUARIO_ID_CALIFICACION, $COL_RECETA_ID_CALIFICACION))")
 
-        db!!.execSQL(CREATE_TABLE_USUARIO)
-        db.execSQL(CREATE_TABLE_RECETA)
-        db.execSQL(CREATE_TABLE_INGREDIENTE)
-        db.execSQL(CREATE_TABLE_RECETAINGREDIENTES)
-        db.execSQL(CREATE_TABLE_SEGUIDOR)
-        db.execSQL(CREATE_TABLE_CALIFICACIONES)
+        db?.execSQL(CREATE_TABLE_USUARIO)
+        db?.execSQL(CREATE_TABLE_RECETA)
+        db?.execSQL(CREATE_TABLE_INGREDIENTE)
+        db?.execSQL(CREATE_TABLE_RECETAINGREDIENTES)
+        db?.execSQL(CREATE_TABLE_SEGUIDOR)
+        db?.execSQL(CREATE_TABLE_CALIFICACIONES)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
-        TODO("Not yet implemented")
+        if (oldVersion < 2) {
+            db?.execSQL("ALTER TABLE $NOMBRE_TABLA_RECETA ADD COLUMN $COL_NOMBRE_RECETA TEXT")
+
+            val ingredientesEsenciales = listOf(
+                Pair("Sal", 1.0),
+                Pair("Pimienta", 2.0),
+                Pair("Aceite de oliva", 3.0),
+                Pair("Ajo", 1.5),
+                Pair("Cebolla", 1.2),
+                Pair("Tomate", 2.5),
+                Pair("Papa", 1.8),
+                Pair("Zanahoria", 2.0),
+                Pair("Leche", 3.5),
+                Pair("Huevos", 2.5),
+                Pair("Harina", 2.2),
+                Pair("Arroz", 1.9),
+                Pair("Pasta", 3.0),
+                Pair("Queso", 4.0),
+                Pair("Pollo", 5.0),
+                Pair("Carne de res", 7.0),
+                Pair("Pescado", 6.0),
+                Pair("Limón", 1.0),
+                Pair("Cilantro", 1.2),
+                Pair("Mantequilla", 2.5)
+            )
+
+            for (ingrediente in ingredientesEsenciales) {
+                val contentValues = ContentValues().apply {
+                    put(COL_NOMBRE, ingrediente.first)
+                    put(COL_PRECIO, ingrediente.second)
+                }
+                db?.insert(NOMBRE_TABLA_INGREDIENTE, null, contentValues)
+            }
+        }
     }
 
-    fun agregarUsuario(usuario:Usuario): Long {
-        val db =writableDatabase
-        val valoresInsert = ContentValues()
-        valoresInsert.put(COL_CORREO, usuario.correo)
-        valoresInsert.put(COL_CONTRASENA,usuario.contrasena)
-        valoresInsert.put(COL_NOMBRE_USUARIO, usuario.nombreUsuario)
-        val filas = db.insert(NOMBRE_TABLA_USUARIO,null, valoresInsert)
+    fun agregarUsuario(usuario: Usuario): Long {
+        val db = writableDatabase
+        val valoresInsert = ContentValues().apply {
+            put(COL_CORREO, usuario.correo)
+            put(COL_CONTRASENA, usuario.contrasena)
+            put(COL_NOMBRE_USUARIO, usuario.nombreUsuario)
+        }
+        val filas = db.insert(NOMBRE_TABLA_USUARIO, null, valoresInsert)
         db.close()
         return filas
     }
 
-    fun usuarioRegistrado(usuario: Usuario):Boolean{
+    fun usuarioRegistrado(usuario: Usuario): Boolean {
         val db = readableDatabase
         val columnas = arrayOf(COL_ID_USUARIO)
         val filtro = "$COL_CORREO = ? AND $COL_CONTRASENA = ?"
-        val clausua = arrayOf(usuario.correo, usuario.contrasena)
+        val clausula = arrayOf(usuario.correo, usuario.contrasena)
         val cursor = db.query(
             NOMBRE_TABLA_USUARIO,
             columnas,
             filtro,
-            clausua,
+            clausula,
             null,
             null,
             null
@@ -138,7 +180,8 @@ class LearnCookDB(contexto: Context): SQLiteOpenHelper(contexto,NOMBRE_DB,null,V
         db.close()
         return registrado
     }
-    fun traerUsuario(user: Usuario): Usuario?{
+
+    fun traerUsuario(user: Usuario): Usuario? {
         val db = readableDatabase
         val columnas = arrayOf(COL_ID_USUARIO, COL_CORREO, COL_CONTRASENA, COL_NOMBRE_USUARIO)
         val selection = "$COL_CORREO = ?"
@@ -170,12 +213,12 @@ class LearnCookDB(contexto: Context): SQLiteOpenHelper(contexto,NOMBRE_DB,null,V
         val db = readableDatabase
         val columnas = arrayOf(COL_ID_USUARIO)
         val filtro = "$COL_CORREO = ? "
-        val clausua = arrayOf(correo)
+        val clausula = arrayOf(correo)
         val cursor = db.query(
             NOMBRE_TABLA_USUARIO,
             columnas,
             filtro,
-            clausua,
+            clausula,
             null,
             null,
             null
@@ -185,23 +228,25 @@ class LearnCookDB(contexto: Context): SQLiteOpenHelper(contexto,NOMBRE_DB,null,V
         db.close()
         return existe
     }
-    fun actualizarContrasena(correo: String, contrasena: String):Int{
+
+    fun actualizarContrasena(correo: String, contrasena: String): Int {
         val db = writableDatabase
         val valoresUpdate = ContentValues().apply {
-            put(COL_CONTRASENA,contrasena)
+            put(COL_CONTRASENA, contrasena)
         }
-        val filasA = db.update(NOMBRE_TABLA_USUARIO,valoresUpdate,"$COL_CORREO = ? ", arrayOf(correo))
+        val filasAfectadas = db.update(NOMBRE_TABLA_USUARIO, valoresUpdate, "$COL_CORREO = ? ", arrayOf(correo))
         db.close()
-        return filasA
+        return filasAfectadas
     }
 
     fun agregarReceta(receta: Receta): Long {
         val db = writableDatabase
         val valoresInsert = ContentValues().apply {
             put(COL_USUARIO_ID, receta.idUsuario)
-            //AÑADIR DESCRIPCION DE LA RECETA Y NOMBRE DE LA RECETA
+            put(COL_NOMBRE_RECETA, receta.nombre)
             put(COL_TIEMPO, receta.tiempo)
             put(COL_PRESUPUESTO, receta.presupuesto)
+            put(COL_PREPARACION, receta.descripcion) // Asegúrate de tener la columna correcta en la tabla
         }
         val filas = db.insert(NOMBRE_TABLA_RECETA, null, valoresInsert)
         db.close()
@@ -235,3 +280,4 @@ class LearnCookDB(contexto: Context): SQLiteOpenHelper(contexto,NOMBRE_DB,null,V
     }
 
 }
+
