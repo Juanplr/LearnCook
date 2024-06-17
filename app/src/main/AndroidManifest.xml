@@ -15,6 +15,9 @@
         android:theme="@style/Theme.LearnCook"
         tools:targetApi="31">
         <activity
+            android:name=".CrearRecetaActivity"
+            android:exported="false" />
+        <activity
             android:name=".CalificarRecetaActivity"
             android:exported="false" />
         <activity

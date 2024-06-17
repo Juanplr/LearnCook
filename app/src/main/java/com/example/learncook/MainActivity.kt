@@ -1,6 +1,8 @@
 package com.example.learncook
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.learncook.databinding.ActivityMainBinding
@@ -50,7 +52,16 @@ class MainActivity : AppCompatActivity() {
             bottomNavigation.selectedItemId = R.id.item_home
         }
 
+        // Configurar el botón para crear receta
+        val buttonCrearReceta: Button = findViewById(R.id.create_button)
+        buttonCrearReceta.setOnClickListener {
+            val intent = Intent(this, CrearRecetaActivity::class.java)
+            intent.putExtra("ID_USUARIO", idUsuario)
+            startActivity(intent)
+        }
+
     }
+
 
     private fun openFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()

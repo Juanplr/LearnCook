@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.learncook.poko.Receta
 import com.example.learncook.poko.Usuario
 
 class LearnCookDB(contexto: Context): SQLiteOpenHelper(contexto,NOMBRE_DB,null,VERSION_DB){
@@ -193,4 +194,18 @@ class LearnCookDB(contexto: Context): SQLiteOpenHelper(contexto,NOMBRE_DB,null,V
         db.close()
         return filasA
     }
+
+    fun agregarReceta(receta: Receta): Long {
+        val db = writableDatabase
+        val valoresInsert = ContentValues().apply {
+            put(COL_USUARIO_ID, receta.idUsuario)
+            put(COL_TIEMPO, receta.tiempo)
+            put(COL_PRESUPUESTO, receta.presupuesto)
+            put(COL_PREPARACION, receta.preparacion)
+        }
+        val filas = db.insert(NOMBRE_TABLA_RECETA, null, valoresInsert)
+        db.close()
+        return filas
+    }
+
 }
