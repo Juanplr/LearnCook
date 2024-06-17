@@ -327,5 +327,45 @@ class LearnCookDB(contexto: Context) : SQLiteOpenHelper(contexto, NOMBRE_DB, nul
         return filas
     }
 
-}
+    fun actualizarCorreo(correoActual: String, nuevoCorreo: String): Int {
+        val db = writableDatabase
+        val valoresUpdate = ContentValues().apply {
+            put(COL_CORREO, nuevoCorreo)
+        }
+        val filasAfectadas = db.update(NOMBRE_TABLA_USUARIO, valoresUpdate, "$COL_CORREO = ?", arrayOf(correoActual))
+        db.close()
+        return filasAfectadas
+    }
 
+
+    fun traerUsuario2(idUsuario: Int): Usuario? {
+        val db = readableDatabase
+        val columnas = arrayOf(COL_ID_USUARIO, COL_CORREO, COL_CONTRASENA, COL_NOMBRE_USUARIO)
+        val selection = "$COL_ID_USUARIO = ?"
+        val selectionArgs = arrayOf(idUsuario.toString())
+        val cursor = db.query(
+            NOMBRE_TABLA_USUARIO,
+            columnas,
+            selection,
+            selectionArgs,
+            null,
+            null,
+            null
+        )
+
+        var usuario: Usuario? = null
+        if (cursor.moveToFirst()) {
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID_USUARIO))
+            val correo = cursor.getString(cursor.getColumnIndexOrThrow(COL_CORREO))
+            val contrasena = cursor.getString(cursor.getColumnIndexOrThrow(COL_CONTRASENA))
+            val nombreUsuario = cursor.getString(cursor.getColumnIndexOrThrow(COL_NOMBRE_USUARIO))
+            usuario = Usuario(id, correo, contrasena, nombreUsuario)
+        }
+        cursor.close()
+        db.close()
+        return usuario
+    }
+
+
+
+}
