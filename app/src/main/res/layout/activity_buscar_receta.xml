@@ -25,17 +25,12 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp">
 
-        <EditText
-            android:id="@+id/et_ingrediente"
+        <Spinner
+            android:id="@+id/spinner_ingredientes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Nombre del ingrediente"
-            android:fontFamily="@font/roboto"
-            android:inputType="textCapWords|textAutoComplete"
             android:padding="10dp"
-            android:textColor="#000000"
-            android:textColorHint="#021D3D"
             android:background="@drawable/rounded_edittext"/>
 
         <Button
@@ -56,8 +51,6 @@
         android:fontFamily="@font/display"
         android:layout_marginTop="10dp"
         android:textSize="25sp"
-
-
         android:textColor="#021D3D"
         android:layout_marginHorizontal="40dp"
         android:textStyle="bold"/>
@@ -73,11 +66,7 @@
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-
-
         </TableRow>
-
-
     </TableLayout>
 
     <Button
@@ -89,6 +78,4 @@
         android:textColor="#021D3D"
         android:fontFamily="@font/roboto"
         android:layout_marginStart="10dp"/>
-
-
 </LinearLayout>
