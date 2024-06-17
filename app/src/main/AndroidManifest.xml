@@ -39,7 +39,7 @@
 
         <!-- Actividad RegistroActivity -->
         <activity android:name=".RegistroActivity" />
-        
+
     </application>
 
 </manifest>
