@@ -1,8 +1,10 @@
 package com.example.learncook.modelo
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.learncook.poko.Usuario
 
 class LearnCookDB(contexto: Context): SQLiteOpenHelper(contexto,NOMBRE_DB,null,VERSION_DB){
     companion object {
@@ -103,5 +105,92 @@ class LearnCookDB(contexto: Context): SQLiteOpenHelper(contexto,NOMBRE_DB,null,V
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         TODO("Not yet implemented")
+    }
+
+    fun agregarUsuario(usuario:Usuario): Long {
+        val db =writableDatabase
+        val valoresInsert = ContentValues()
+        valoresInsert.put(COL_CORREO, usuario.correo)
+        valoresInsert.put(COL_CONTRASENA,usuario.contrasena)
+        valoresInsert.put(COL_NOMBRE_USUARIO, usuario.nombreUsuario)
+        val filas = db.insert(NOMBRE_TABLA_USUARIO,null, valoresInsert)
+        db.close()
+        return filas
+    }
+
+    fun usuarioRegistrado(usuario: Usuario):Boolean{
+        val db = readableDatabase
+        val columnas = arrayOf(COL_ID_USUARIO)
+        val filtro = "$COL_CORREO = ? AND $COL_CONTRASENA = ?"
+        val clausua = arrayOf(usuario.correo, usuario.contrasena)
+        val cursor = db.query(
+            NOMBRE_TABLA_USUARIO,
+            columnas,
+            filtro,
+            clausua,
+            null,
+            null,
+            null
+        )
+        val registrado = cursor.count > 0
+        cursor.close()
+        db.close()
+        return registrado
+    }
+    fun traerUsuario(user: Usuario): Usuario?{
+        val db = readableDatabase
+        val columnas = arrayOf(COL_ID_USUARIO, COL_CORREO, COL_CONTRASENA, COL_NOMBRE_USUARIO)
+        val selection = "$COL_CORREO = ?"
+        val selectionArgs = arrayOf(user.correo)
+        val cursor = db.query(
+            NOMBRE_TABLA_USUARIO,
+            columnas,
+            selection,
+            selectionArgs,
+            null,
+            null,
+            null
+        )
+
+        var usuario: Usuario? = null
+        if (cursor.moveToFirst()) {
+            val id = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID_USUARIO))
+            val correo = cursor.getString(cursor.getColumnIndexOrThrow(COL_CORREO))
+            val contrasena = cursor.getString(cursor.getColumnIndexOrThrow(COL_CONTRASENA))
+            val nombreUsuario = cursor.getString(cursor.getColumnIndexOrThrow(COL_NOMBRE_USUARIO))
+            usuario = Usuario(id, correo, contrasena, nombreUsuario)
+        }
+        cursor.close()
+        db.close()
+        return usuario
+    }
+
+    fun isCorreo(correo: String): Boolean {
+        val db = readableDatabase
+        val columnas = arrayOf(COL_ID_USUARIO)
+        val filtro = "$COL_CORREO = ? "
+        val clausua = arrayOf(correo)
+        val cursor = db.query(
+            NOMBRE_TABLA_USUARIO,
+            columnas,
+            filtro,
+            clausua,
+            null,
+            null,
+            null
+        )
+        val existe = cursor.count > 0
+        cursor.close()
+        db.close()
+        return existe
+    }
+    fun actualizarContrasena(correo: String, contrasena: String):Int{
+        val db = writableDatabase
+        val valoresUpdate = ContentValues().apply {
+            put(COL_CONTRASENA,contrasena)
+        }
+        val filasA = db.update(NOMBRE_TABLA_USUARIO,valoresUpdate,"$COL_CORREO = ? ", arrayOf(correo))
+        db.close()
+        return filasA
     }
 }
