@@ -77,7 +77,14 @@ class CrearRecetaActivity : AppCompatActivity() {
         }
 
         // Crear instancia de receta
-        val receta = Receta(0, title, quantity.toInt(), desc, idUsuario)
+        val receta = Receta(
+            id = 0,
+            nombre = title,
+            tiempo = "Tiempo de la receta",
+            presupuesto = quantity.toInt(),
+            descripcion = desc,
+            idUsuario = idUsuario
+        )
 
         // Insertar receta en la base de datos
         val db = LearnCookDB(this@CrearRecetaActivity)
@@ -90,4 +97,5 @@ class CrearRecetaActivity : AppCompatActivity() {
             Toast.makeText(this, "Error al crear la receta", Toast.LENGTH_SHORT).show()
         }
     }
+
 }

@@ -15,6 +15,9 @@
         android:theme="@style/Theme.LearnCook"
         tools:targetApi="31">
         <activity
+            android:name=".BorrarRecetaActivity"
+            android:exported="false" />
+        <activity
             android:name=".CrearRecetaActivity"
             android:exported="false" />
         <activity
