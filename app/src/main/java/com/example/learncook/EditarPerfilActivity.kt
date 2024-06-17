@@ -1,8 +1,8 @@
 package com.example.learncook
 
-import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -10,7 +10,6 @@ import com.example.learncook.databinding.ActivityEditarUsuarioBinding
 import com.example.learncook.fragmentos.PerfilFragment
 import com.example.learncook.modelo.LearnCookDB
 import com.example.learncook.poko.Usuario
-
 
 class EditarPerfilActivity : AppCompatActivity() {
 
@@ -26,7 +25,8 @@ class EditarPerfilActivity : AppCompatActivity() {
         db = LearnCookDB(this)
 
         val idUsuario = intent.getIntExtra("idUsuario", -1)
-        usuario = db.traerUsuario(Usuario(idUsuario, "", "", "")) ?: run {
+        Log.d("EditarPerfilActivity", "idUsuario recibido: $idUsuario")
+        usuario = db.traerUsuario2(idUsuario) ?: run {
             Toast.makeText(this, "Usuario no encontrado", Toast.LENGTH_SHORT).show()
             finish()
             return
@@ -65,6 +65,7 @@ class EditarPerfilActivity : AppCompatActivity() {
             val intent = Intent(this, PerfilFragment::class.java)
             intent.putExtra("idUsuario", idUsuario)
             startActivity(intent)
+
             finish()
         }
     }
