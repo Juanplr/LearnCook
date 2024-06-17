@@ -1,13 +1,11 @@
 package com.example.learncook
 
-import android.app.Activity
-import android.content.Intent
-import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.view.View
-import android.widget.*
+import android.widget.AutoCompleteTextView
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -82,7 +80,7 @@ class CrearRecetaActivity : AppCompatActivity() {
         val receta = Receta(0, title, quantity.toInt(), desc, idUsuario)
 
         // Insertar receta en la base de datos
-        val db = LearnCookDB(this)
+        val db = LearnCookDB(this@CrearRecetaActivity)
         val resultado = db.agregarReceta(receta)
 
         if (resultado != -1L) {
