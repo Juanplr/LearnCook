@@ -37,6 +37,12 @@
         <activity
             android:name=".EditarPerfilActivity"
             android:exported="true" />
+        <activity
+            android:name=".BuscarIngredienteActivity"
+            android:exported="true" />
+        <activity
+            android:name=".BuscarPresupuestoActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
