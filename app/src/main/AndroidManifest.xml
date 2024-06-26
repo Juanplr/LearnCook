@@ -19,7 +19,7 @@
             android:name=".BorrarRecetaActivity"
             android:exported="false" />
         <activity
-            android:name=".CrearRecetaActivity"
+            android:name=".SeguirUsuarioActivity"
             android:exported="false" />
         <activity
             android:name=".CalificarRecetaActivity"
@@ -30,6 +30,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
+
         <activity
             android:name=".LoginActivity"
             android:exported="true">

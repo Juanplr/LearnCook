@@ -5,8 +5,11 @@
     <string name="login_et_correo">Correo electrónico</string>
     <string name="login_et_contrasena">Contraseña</string>
     <string name="login_btn_inicio">Iniciar sesión</string>
+<<<<<<< HEAD
+=======
     <string name="login_btn_registro">Registrarse</string>
     <string name="login_btn_olvidaste">¿Olvidaste tu contraseña?</string>
+>>>>>>> main
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Home fragment</string>
